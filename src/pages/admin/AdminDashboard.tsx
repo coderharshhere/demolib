@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { getLibraryStats, getPendingStudents, getAllStudents } from '@/services/dataService';
 import { Button } from '@/components/ui/button';
+import AdminLayout from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
   Users, 
   LayoutDashboard, 
   CreditCard, 
-  LogOut, 
   UserCheck, 
   Armchair,
   IndianRupee,
@@ -55,54 +55,7 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white border-r hidden md:flex flex-col">
-        <div className="p-4 border-b">
-          <div className="flex items-center gap-2">
-            <div className="bg-primary p-2 rounded-lg">
-              <LayoutDashboard className="h-5 w-5 text-white" />
-            </div>
-            <span className="font-bold text-lg">Admin Panel</span>
-          </div>
-        </div>
-        
-        <nav className="flex-1 p-4">
-          <ul className="space-y-1">
-            {navItems.map((item) => (
-              <li key={item.path}>
-                <Button
-                  variant={item.active ? 'secondary' : 'ghost'}
-                  className="w-full justify-start"
-                  onClick={() => navigate(item.path)}
-                >
-                  <item.icon className="h-4 w-4 mr-2" />
-                  {item.label}
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        
-        <div className="p-4 border-t">
-          <Button variant="outline" className="w-full" onClick={handleLogout}>
-            <LogOut className="h-4 w-4 mr-2" />
-            Logout
-          </Button>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 overflow-auto">
-        {/* Mobile Header */}
-        <header className="bg-white border-b p-4 md:hidden flex justify-between items-center">
-          <span className="font-bold">Admin Dashboard</span>
-          <Button variant="ghost" size="sm" onClick={handleLogout}>
-            <LogOut className="h-4 w-4" />
-          </Button>
-        </header>
-
-        <div className="p-6">
+    <AdminLayout pageTitle="Admin Dashboard" navItems={navItems} onLogout={handleLogout}>
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
             <p className="text-slate-600">Welcome back! Here's what's happening in your library.</p>
@@ -274,8 +227,6 @@ export default function AdminDashboard() {
               </Card>
             </div>
           )}
-        </div>
-      </main>
-    </div>
+    </AdminLayout>
   );
 }
