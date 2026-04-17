@@ -15,6 +15,13 @@ export interface Student {
   address: string;
   course: string;
   institute: string;
+  guardianName?: string;
+  emergencyContact?: string;
+  dateOfBirth?: string;
+  gender?: 'male' | 'female' | 'other';
+  studyGoal?: string;
+  preferredShift?: 'morning' | 'afternoon' | 'evening' | 'full-day';
+  idType?: 'aadhaar' | 'pan' | 'college-id' | 'other';
   photoUrl?: string;
   idProofUrl?: string;
   status: 'pending' | 'approved' | 'rejected' | 'active' | 'inactive';
