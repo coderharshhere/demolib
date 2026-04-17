@@ -1,4 +1,4 @@
-import type { Student, Seat, Payment, Notification, LibraryStats, Attendance } from '@/types';
+import type { Student, Seat, Payment, Notification, LibraryStats, Attendance, LibraryConfig } from '@/types';
 
 // Initialize mock data
 export function initializeMockData() {
@@ -37,6 +37,19 @@ export function initializeMockData() {
 
   if (!localStorage.getItem('library_attendance')) {
     localStorage.setItem('library_attendance', JSON.stringify([]));
+  }
+
+  if (!localStorage.getItem('library_config')) {
+    const defaultConfig: LibraryConfig = {
+      libraryName: 'LibraryHub',
+      openTime: '07:00',
+      closeTime: '22:00',
+      monthlyFee: 1000,
+      lateFeePerHour: 20,
+      enableOnlinePayment: true,
+      enableAttendanceTracking: true,
+    };
+    localStorage.setItem('library_config', JSON.stringify(defaultConfig));
   }
 }
 
@@ -88,6 +101,14 @@ export function updateSeat(seat: Seat): void {
 
 export function getAvailableSeats(): Seat[] {
   return getAllSeats().filter(s => s.status === 'available');
+}
+
+export function updateSeatPricesByType(priceMap: Record<Seat['type'], number>): void {
+  const seats = getAllSeats().map((seat) => ({
+    ...seat,
+    price: priceMap[seat.type],
+  }));
+  localStorage.setItem('library_seats', JSON.stringify(seats));
 }
 
 export function assignSeatToStudent(seatId: string, studentId: string, studentName: string): void {
@@ -276,6 +297,23 @@ export function getLibraryStats(): LibraryStats {
     todayRevenue,
     monthlyRevenue
   };
+}
+
+export function getLibraryConfig(): LibraryConfig {
+  const fallback: LibraryConfig = {
+    libraryName: 'LibraryHub',
+    openTime: '07:00',
+    closeTime: '22:00',
+    monthlyFee: 1000,
+    lateFeePerHour: 20,
+    enableOnlinePayment: true,
+    enableAttendanceTracking: true,
+  };
+  return JSON.parse(localStorage.getItem('library_config') || JSON.stringify(fallback));
+}
+
+export function updateLibraryConfig(config: LibraryConfig): void {
+  localStorage.setItem('library_config', JSON.stringify(config));
 }
 
 // Approval Workflow

@@ -86,3 +86,13 @@ export interface Attendance {
   date: string;
   status: 'present' | 'absent';
 }
+
+export interface LibraryConfig {
+  libraryName: string;
+  openTime: string;
+  closeTime: string;
+  monthlyFee: number;
+  lateFeePerHour: number;
+  enableOnlinePayment: boolean;
+  enableAttendanceTracking: boolean;
+}
