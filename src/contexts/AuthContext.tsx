@@ -18,6 +18,15 @@ interface RegisterData {
   address: string;
   course: string;
   institute: string;
+  guardianName?: string;
+  emergencyContact?: string;
+  dateOfBirth?: string;
+  gender?: 'male' | 'female' | 'other';
+  studyGoal?: string;
+  preferredShift?: 'morning' | 'afternoon' | 'evening' | 'full-day';
+  idType?: 'aadhaar' | 'pan' | 'college-id' | 'other';
+  photoUrl?: string;
+  idProofUrl?: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -69,7 +78,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const students = JSON.parse(localStorage.getItem('library_students') || '[]');
       const foundStudent = students.find((s: Student) => s.email === email);
       
-      if (foundStudent && password === 'student123') {
+      const passwords = JSON.parse(localStorage.getItem('library_passwords') || '{}');
+      if (foundStudent && passwords[email] === password) {
         const studentUser: User = {
           id: foundStudent.userId,
           email: foundStudent.email,
@@ -113,6 +123,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       address: data.address,
       course: data.course,
       institute: data.institute,
+      guardianName: data.guardianName,
+      emergencyContact: data.emergencyContact,
+      dateOfBirth: data.dateOfBirth,
+      gender: data.gender,
+      studyGoal: data.studyGoal,
+      preferredShift: data.preferredShift,
+      idType: data.idType,
+      photoUrl: data.photoUrl,
+      idProofUrl: data.idProofUrl,
       status: 'pending',
       registrationDate: new Date().toISOString(),
       paymentStatus: 'pending'
@@ -123,7 +142,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     
     // Store password separately (in real app, this would be hashed)
     const passwords = JSON.parse(localStorage.getItem('library_passwords') || '{}');
-    passwords[data.email] = 'student123';
+    passwords[data.email] = data.password;
     localStorage.setItem('library_passwords', JSON.stringify(passwords));
     
     setIsLoading(false);

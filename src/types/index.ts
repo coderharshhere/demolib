@@ -15,6 +15,13 @@ export interface Student {
   address: string;
   course: string;
   institute: string;
+  guardianName?: string;
+  emergencyContact?: string;
+  dateOfBirth?: string;
+  gender?: 'male' | 'female' | 'other';
+  studyGoal?: string;
+  preferredShift?: 'morning' | 'afternoon' | 'evening' | 'full-day';
+  idType?: 'aadhaar' | 'pan' | 'college-id' | 'other';
   photoUrl?: string;
   idProofUrl?: string;
   status: 'pending' | 'approved' | 'rejected' | 'active' | 'inactive';
@@ -85,4 +92,14 @@ export interface Attendance {
   exitTime?: string;
   date: string;
   status: 'present' | 'absent';
+}
+
+export interface LibraryConfig {
+  libraryName: string;
+  openTime: string;
+  closeTime: string;
+  monthlyFee: number;
+  lateFeePerHour: number;
+  enableOnlinePayment: boolean;
+  enableAttendanceTracking: boolean;
 }
