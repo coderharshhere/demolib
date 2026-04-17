@@ -16,10 +16,11 @@ import { Button } from '@/components/ui/button';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import {
+import { 
+  Users, 
+  LayoutDashboard, 
+  CreditCard, 
+  UserCheck, 
   Armchair,
   Calendar,
   CalendarCheck,
@@ -143,47 +144,10 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout pageTitle="Admin Dashboard" navItems={navItems} onLogout={handleLogout}>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">Detailed Admin Dashboard</h1>
-        <p className="text-slate-600 mt-1">
-          Library ke saare major controls ab yahin se: students, seats, pricing, payments, attendance, and settings.
-        </p>
-      </div>
-
-      {stats && (
-        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
-          <Card><CardContent className="p-4"><p className="text-xs text-slate-500">Total Students</p><p className="text-2xl font-bold">{stats.totalStudents}</p></CardContent></Card>
-          <Card><CardContent className="p-4"><p className="text-xs text-slate-500">Active</p><p className="text-2xl font-bold text-green-600">{stats.activeStudents}</p></CardContent></Card>
-          <Card><CardContent className="p-4"><p className="text-xs text-slate-500">Pending</p><p className="text-2xl font-bold text-amber-600">{stats.pendingApprovals}</p></CardContent></Card>
-          <Card><CardContent className="p-4"><p className="text-xs text-slate-500">Available Seats</p><p className="text-2xl font-bold text-blue-600">{stats.availableSeats}</p></CardContent></Card>
-          <Card><CardContent className="p-4"><p className="text-xs text-slate-500">Today's Revenue</p><p className="text-2xl font-bold">₹{stats.todayRevenue}</p></CardContent></Card>
-          <Card><CardContent className="p-4"><p className="text-xs text-slate-500">Monthly Revenue</p><p className="text-2xl font-bold">₹{stats.monthlyRevenue.toLocaleString()}</p></CardContent></Card>
-        </div>
-      )}
-
-      <div className="grid lg:grid-cols-3 gap-6 mb-6">
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <LayoutDashboard className="h-5 w-5 text-primary" />
-              All Library Modules
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
-            {quickActions.map((item) => (
-              <button
-                key={item.path}
-                type="button"
-                onClick={() => navigate(item.path)}
-                className="text-left border rounded-lg p-4 hover:bg-slate-50 transition-colors"
-              >
-                <item.icon className="h-5 w-5 text-primary mb-2" />
-                <p className="font-semibold text-sm">{item.title}</p>
-                <p className="text-xs text-slate-500">{item.subtitle}</p>
-              </button>
-            ))}
-          </CardContent>
-        </Card>
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
+            <p className="text-slate-600">Welcome back! Here's what's happening in your library.</p>
+          </div>
 
         <Card>
           <CardHeader>
@@ -378,12 +342,7 @@ export default function AdminDashboard() {
                 </div>
               ))}
             </div>
-            <Button variant="outline" className="w-full mt-4" onClick={() => navigate('/admin/students')}>
-              View All
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
+          )}
     </AdminLayout>
   );
 }
