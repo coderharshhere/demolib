@@ -168,7 +168,7 @@ export default function LandingPage() {
             Modern library management system for the digital age.
           </p>
           <div className="border-t border-slate-800 mt-8 pt-8 text-center text-slate-400">
-            © 2024 LibraryHub. All rights reserved.
+            © 2026 LibraryHub. All rights reserved.
           </div>
         </div>
       </footer>
