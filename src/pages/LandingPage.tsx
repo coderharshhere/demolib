@@ -7,16 +7,11 @@ import {
   BookOpen,
   CalendarClock,
   CheckCircle2,
-  Clock3,
-  Coffee,
   CreditCard,
   LayoutDashboard,
   Mail,
-  MapPin,
-  Monitor,
   ShieldCheck,
   Sparkles,
-  Wifi,
   Users,
 } from 'lucide-react';
 
