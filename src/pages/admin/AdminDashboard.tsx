@@ -99,6 +99,16 @@ export default function AdminDashboard() {
     navigate('/');
   };
 
+  const handleSeatPriceSave = () => {
+    updateSeatPricesByType(seatPrices);
+    toast.success('Seat prices updated successfully');
+  };
+
+  const handleConfigSave = () => {
+    updateLibraryConfig(config);
+    toast.success('Library configuration updated successfully');
+  };
+
   const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard', active: true },
     { icon: Users, label: 'Students', path: '/admin/students' },
@@ -110,7 +120,6 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout pageTitle="Admin Dashboard" navItems={navItems} onLogout={handleLogout}>
-      
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
         <p className="text-slate-600">Welcome back! Here's what's happening in your library.</p>
@@ -130,7 +139,6 @@ export default function AdminDashboard() {
       </Card>
 
       <div className="grid xl:grid-cols-2 gap-6 mb-6">
-        
         <Card>
           <CardHeader>
             <CardTitle>Seat Pricing</CardTitle>
@@ -165,11 +173,9 @@ export default function AdminDashboard() {
             <Button onClick={handleConfigSave}>Save</Button>
           </CardContent>
         </Card>
-
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
-
         <Card>
           <CardHeader>
             <CardTitle>Pending Students</CardTitle>
@@ -191,9 +197,7 @@ export default function AdminDashboard() {
             ))}
           </CardContent>
         </Card>
-
       </div>
-
     </AdminLayout>
   );
 }
