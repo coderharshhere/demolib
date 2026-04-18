@@ -41,7 +41,6 @@ import {
 import type { Student, Seat } from '@/types';
 import { toast } from 'sonner';
 import { downloadStudentProfilePdf } from '@/lib/documentGenerators';
-import { getAdminNavItems } from '@/lib/adminNav';
 
 export default function StudentManagement() {
   const navigate = useNavigate();
