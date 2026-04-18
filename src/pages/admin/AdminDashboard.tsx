@@ -27,10 +27,7 @@ import {
   UserCheck,
   Armchair,
   Calendar,
-  IndianRupee,
-  Settings,
   TrendingUp,
-  Clock,
   CheckCircle,
 } from 'lucide-react';
 
