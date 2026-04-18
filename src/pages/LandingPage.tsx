@@ -3,13 +3,17 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
+  Archive,
   ArrowRight,
   BookOpen,
   CalendarClock,
   CheckCircle2,
   CreditCard,
+  FileBadge2,
+  FileText,
   LayoutDashboard,
   Mail,
+  ReceiptText,
   ShieldCheck,
   Sparkles,
   Users,
@@ -35,6 +39,12 @@ const features = [
     accent: 'from-emerald-500/20 to-teal-500/20',
   },
   {
+    icon: FileText,
+    title: 'Detailed Student Records',
+    description: 'Store complete student details including guardian, shift, ID proof, and complete profile history.',
+    accent: 'from-cyan-500/20 to-sky-500/20',
+  },
+  {
     icon: Mail,
     title: 'Auto Notifications',
     description: 'Send timely reminders for approvals, payments, and attendance updates automatically.',
@@ -54,6 +64,29 @@ const steps = [
   { title: 'Admin Approves', text: 'Admin reviews requests and confirms seat allocation instantly.' },
   { title: 'Payment Completed', text: 'Students pay via online or cash with transparent records.' },
   { title: 'Library Access Active', text: 'Attendance starts, reminders are automated, and usage is tracked.' },
+];
+
+const modules = [
+  {
+    icon: LayoutDashboard,
+    title: 'Admin Control Center',
+    points: ['Dashboard analytics', 'Student approvals', 'Seat assignment', 'Attendance records'],
+  },
+  {
+    icon: Users,
+    title: 'Student Portal',
+    points: ['Status tracking', 'Seat updates', 'Profile management', 'Latest notifications'],
+  },
+  {
+    icon: ReceiptText,
+    title: 'Billing & Receipts',
+    points: ['Online/Cash payments', 'Receipt download', 'Payment history', 'Monthly fee tracking'],
+  },
+  {
+    icon: Archive,
+    title: 'Document Management',
+    points: ['Full student profile view', 'Professional PDF export', 'Printable reports', 'Audit-ready details'],
+  },
 ];
 
 export default function LandingPage() {
@@ -193,6 +226,39 @@ export default function LandingPage() {
                     </div>
                     <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
                     <p className="text-sm text-slate-300 leading-relaxed">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl sm:text-4xl font-bold">Everything Available In Your Library App</h2>
+              <p className="text-slate-300 mt-3 max-w-3xl mx-auto">
+                A complete system for modern libraries: student registration, approvals, seat management,
+                attendance, payments, and downloadable professional documents for admins and students.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+              {modules.map((module) => (
+                <Card key={module.title} className="border-white/10 bg-white/[0.04]">
+                  <CardContent className="p-6">
+                    <div className="h-11 w-11 rounded-xl border border-white/15 bg-white/5 flex items-center justify-center mb-4">
+                      <module.icon className="h-5 w-5 text-cyan-200" />
+                    </div>
+                    <h3 className="font-semibold text-lg mb-3">{module.title}</h3>
+                    <div className="space-y-2.5">
+                      {module.points.map((point) => (
+                        <p key={point} className="text-sm text-slate-300 flex items-start gap-2">
+                          <FileBadge2 className="h-4 w-4 mt-0.5 text-emerald-300" />
+                          <span>{point}</span>
+                        </p>
+                      ))}
+                    </div>
                   </CardContent>
                 </Card>
               ))}
