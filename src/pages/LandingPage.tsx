@@ -48,32 +48,17 @@ const features = [
 ];
 
 const highlights = [
-  'AC + Non-AC dedicated study zones',
-  'Silent library with strict discipline monitoring',
-  'Online + cash payment flexibility',
-  'Attendance, seat and billing all-in-one system',
-];
-
-const facilities = [
-  { icon: Wifi, name: 'High-Speed Wi-Fi', detail: 'Stable broadband for online classes, tests and research work.' },
-  { icon: Monitor, name: 'Digital Admin System', detail: 'Student approvals, seat control, attendance and payments tracked digitally.' },
-  { icon: Coffee, name: 'Refreshment Zone', detail: 'Water and quick refreshment area for long study hours.' },
-  { icon: ShieldCheck, name: 'Secure Premises', detail: 'Safe campus access with monitored entry and role-based controls.' },
-  { icon: Clock3, name: 'Flexible Timings', detail: 'Morning to late evening shifts with full-day options available.' },
-  { icon: MapPin, name: 'Prime Location', detail: 'Easy to reach location with student-friendly environment.' },
-];
-
-const seatPlans = [
-  { plan: 'Single Seat', price: '₹800 / month', points: ['Personal space', 'Charging point', 'Fan zone'] },
-  { plan: 'Double Seat', price: '₹1200 / month', points: ['Shared wide table', 'Charging point', 'AC/airflow section'] },
-  { plan: 'Cabin Seat', price: '₹1500 / month', points: ['Premium private desk', 'AC + locker', 'Focused quiet area'] },
+  'Fast onboarding for new students',
+  'Secure admin controls and approvals',
+  'Insightful analytics for daily operations',
+  'Designed for desktop and mobile experiences',
 ];
 
 const steps = [
-  { title: 'Register', text: 'Student complete details + photo + ID proof upload karta hai.' },
-  { title: 'Verification', text: 'Admin profile review karta hai aur suitable seat assign karta hai.' },
-  { title: 'Payment', text: 'Student online/cash payment complete karta hai.' },
-  { title: 'Start Study', text: 'Seat activate ho jati hai aur attendance tracking start hoti hai.' },
+  { title: 'Student Registers', text: 'Students submit details and choose preferred seat options.' },
+  { title: 'Admin Approves', text: 'Admin reviews requests and confirms seat allocation instantly.' },
+  { title: 'Payment Completed', text: 'Students pay via online or cash with transparent records.' },
+  { title: 'Library Access Active', text: 'Attendance starts, reminders are automated, and usage is tracked.' },
 ];
 
 export default function LandingPage() {
@@ -123,17 +108,16 @@ export default function LandingPage() {
             <div>
               <Badge className="mb-5 bg-violet-500/20 text-violet-100 border-violet-300/30">
                 <Sparkles className="h-3.5 w-3.5 mr-1" />
-                Modern & Professional Study Ecosystem
+                Next-gen Library Management
               </Badge>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
-                Library ke bare me
+                Super Professional
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-violet-300 to-cyan-300">
-                  sab kuch ek hi jagah
+                  Library Experience
                 </span>
               </h1>
               <p className="mt-6 text-slate-300 text-lg max-w-xl">
-                LibraryHub ek complete digital library solution hai jahan registration se lekar seat allotment, payment, attendance,
-                reminder notifications aur admin control sab integrated hai.
+                Manage registrations, seat allocation, attendance, and billing from a beautiful, fast, and powerful platform built for modern libraries.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -168,15 +152,15 @@ export default function LandingPage() {
             <Card className="border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl shadow-violet-950/40">
               <CardContent className="p-6 sm:p-8 space-y-6">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-semibold">Library Overview</h3>
-                  <Badge className="bg-emerald-500/20 text-emerald-200 border-emerald-300/40">Open</Badge>
+                  <h3 className="text-xl font-semibold">Live Operations Snapshot</h3>
+                  <Badge className="bg-emerald-500/20 text-emerald-200 border-emerald-300/40">Active</Badge>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    ['10+ Hours', 'Daily Study Time'],
-                    ['80+ Seats', 'Planned Capacity'],
-                    ['4 Shifts', 'Morning to Full Day'],
-                    ['100%', 'Digital Management'],
+                    ['1,240+', 'Students'],
+                    ['98%', 'Seat Utilization'],
+                    ['₹8.2L', 'Monthly Revenue'],
+                    ['24/7', 'System Uptime'],
                   ].map(([value, label]) => (
                     <div key={label} className="rounded-xl border border-white/10 bg-slate-900/60 p-4">
                       <p className="text-2xl font-bold text-white">{value}</p>
@@ -186,7 +170,7 @@ export default function LandingPage() {
                 </div>
                 <div className="rounded-xl border border-cyan-300/20 bg-cyan-500/10 p-4 text-sm text-cyan-100 flex items-start gap-2">
                   <ShieldCheck className="h-4 w-4 mt-0.5" />
-                  Admin aur student dono ke liye secure role-based access aur transparent workflow.
+                  Role-based admin and student login ensures secure and reliable daily operations.
                 </div>
               </CardContent>
             </Card>
@@ -196,9 +180,9 @@ export default function LandingPage() {
         <section className="py-16 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="text-3xl sm:text-4xl font-bold">Library ki Core Digital Suvidha</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold">Powerful Features, Premium Feel</h2>
               <p className="text-slate-300 mt-3 max-w-2xl mx-auto">
-                Student management, seat control, payment handling aur smart communication - sab ek integrated panel me.
+                Everything you need to run a high-performance library, presented in a colorful professional interface.
               </p>
             </div>
 
@@ -222,62 +206,12 @@ export default function LandingPage() {
         </section>
 
         <section className="py-16 px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl sm:text-4xl font-bold">Physical Facilities & Environment</h2>
-              <p className="text-slate-300 mt-3 max-w-2xl mx-auto">
-                Library me available practical suvidha jo regular students ko daily focused study me help karti hai.
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {facilities.map((item) => (
-                <Card key={item.name} className="border-white/10 bg-white/[0.04]">
-                  <CardContent className="p-6">
-                    <item.icon className="h-6 w-6 text-cyan-300 mb-3" />
-                    <h3 className="font-semibold text-lg">{item.name}</h3>
-                    <p className="text-sm text-slate-300 mt-1">{item.detail}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="py-16 px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl sm:text-4xl font-bold">Seat Plans & Pricing</h2>
-              <p className="text-slate-300 mt-3">Different budget and comfort needs ke liye clear pricing structure.</p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-5">
-              {seatPlans.map((plan) => (
-                <Card key={plan.plan} className="border-white/10 bg-white/[0.04]">
-                  <CardContent className="p-6">
-                    <p className="text-sm text-violet-300 font-semibold">{plan.plan}</p>
-                    <p className="text-3xl font-bold my-2">{plan.price}</p>
-                    <ul className="space-y-2">
-                      {plan.points.map((point) => (
-                        <li key={point} className="text-sm text-slate-300 flex items-center gap-2">
-                          <CheckCircle2 className="h-4 w-4 text-emerald-300" />
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="py-16 px-4">
           <div className="max-w-6xl mx-auto">
             <Card className="border-white/10 bg-gradient-to-r from-violet-500/15 via-fuchsia-500/10 to-cyan-500/15">
               <CardContent className="p-8 sm:p-10">
                 <div className="flex items-center gap-2 mb-6 text-cyan-200">
                   <CalendarClock className="h-5 w-5" />
-                  <span className="font-medium">Admission & Access Process</span>
+                  <span className="font-medium">How it works</span>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                   {steps.map((step, index) => (
@@ -297,9 +231,9 @@ export default function LandingPage() {
 
         <section className="pb-20 px-4">
           <div className="max-w-5xl mx-auto text-center rounded-2xl border border-white/15 bg-white/[0.04] p-10">
-            <h2 className="text-3xl sm:text-4xl font-bold">Join LibraryHub Today</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold">Ready to transform your library?</h2>
             <p className="text-slate-300 mt-3 mb-7">
-              Agar aapko professional, transparent aur tech-enabled library chahiye to registration start karein.
+              Join a smarter workflow for students and admins with a premium modern platform.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Button
