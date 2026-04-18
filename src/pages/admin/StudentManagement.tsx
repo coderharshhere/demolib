@@ -30,13 +30,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { 
-  Users, 
-  LayoutDashboard, 
-  CreditCard, 
-  UserCheck, 
-  Armchair,
   Search,
-  Calendar,
   CheckCircle,
   XCircle,
   Eye,
@@ -120,14 +114,7 @@ export default function StudentManagement() {
 
   const availableSeats = seats.filter(s => s.status === 'available');
 
-  const navItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard' },
-    { icon: Users, label: 'Students', path: '/admin/students', active: true },
-    { icon: Armchair, label: 'Seats', path: '/admin/seats' },
-    { icon: CreditCard, label: 'Payments', path: '/admin/payments' },
-    { icon: Calendar, label: 'Attendance', path: '/admin/attendance' },
-    { icon: UserCheck, label: 'Settings', path: '/admin/settings' },
-  ];
+  const navItems = getAdminNavItems('students');
 
   const getStatusBadge = (status: string) => {
     const variants: Record<string, 'default' | 'secondary' | 'outline' | 'destructive'> = {
