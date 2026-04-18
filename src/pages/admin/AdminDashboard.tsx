@@ -28,7 +28,6 @@ import {
   Armchair,
   Calendar,
   TrendingUp,
-  CheckCircle,
 } from 'lucide-react';
 
 import { toast } from 'sonner';
@@ -48,7 +47,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const { logout } = useAuth();
 
-  const [stats, setStats] = useState<LibraryStats | null>(null);
+  const [, setStats] = useState<LibraryStats | null>(null);
   const [pendingStudents, setPendingStudents] = useState<Student[]>([]);
   const [recentStudents, setRecentStudents] = useState<Student[]>([]);
   const [config, setConfig] = useState<LibraryConfig>(defaultConfig);
