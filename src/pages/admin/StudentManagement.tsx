@@ -36,7 +36,9 @@ import {
   Eye,
   FileDown,
   IndianRupee,
-  CheckCheck
+  CheckCheck,
+  UserCheck,
+  Users
 } from 'lucide-react';
 import type { Student, Seat } from '@/types';
 import { toast } from 'sonner';
