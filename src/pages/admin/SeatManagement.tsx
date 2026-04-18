@@ -16,11 +16,7 @@ import {
 } from '@/components/ui/dialog';
 import { 
   Users, 
-  LayoutDashboard, 
-  CreditCard, 
-  UserCheck, 
   Armchair,
-  Calendar,
   Zap,
   Lightbulb,
   Wind,
@@ -28,6 +24,7 @@ import {
 } from 'lucide-react';
 import type { Seat } from '@/types';
 import { toast } from 'sonner';
+import { getAdminNavItems } from '@/lib/adminNav';
 
 export default function SeatManagement() {
   const navigate = useNavigate();
@@ -95,14 +92,7 @@ export default function SeatManagement() {
     return null;
   };
 
-  const navItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard' },
-    { icon: Users, label: 'Students', path: '/admin/students' },
-    { icon: Armchair, label: 'Seats', path: '/admin/seats', active: true },
-    { icon: CreditCard, label: 'Payments', path: '/admin/payments' },
-    { icon: Calendar, label: 'Attendance', path: '/admin/attendance' },
-    { icon: UserCheck, label: 'Settings', path: '/admin/settings' },
-  ];
+  const navItems = getAdminNavItems('seats');
 
   // Group seats by rows
   const seatsByRow: Record<number, Seat[]> = {};

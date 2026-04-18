@@ -8,25 +8,23 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { 
-  Users, 
-  LayoutDashboard, 
   CreditCard, 
-  UserCheck, 
-  Armchair,
   Search,
-  Calendar,
   IndianRupee,
   CheckCircle,
   TrendingUp,
   Download
 } from 'lucide-react';
 import type { Payment } from '@/types';
+import { getAdminNavItems } from '@/lib/adminNav';
 
 export default function Payments() {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [payments, setPayments] = useState<Payment[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [methodFilter, setMethodFilter] = useState<'all' | 'online' | 'cash'>('all');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'completed' | 'pending' | 'failed'>('all');
   const [stats, setStats] = useState({
     totalRevenue: 0,
     onlinePayments: 0,
@@ -58,19 +56,15 @@ export default function Payments() {
     navigate('/');
   };
 
-  const filteredPayments = payments.filter(payment => 
-    payment.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (payment.transactionId?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false)
-  );
+  const filteredPayments = payments.filter((payment) => {
+    const matchesSearch = payment.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (payment.transactionId?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false);
+    const matchesMethod = methodFilter === 'all' || payment.method === methodFilter;
+    const matchesStatus = statusFilter === 'all' || payment.status === statusFilter;
+    return matchesSearch && matchesMethod && matchesStatus;
+  });
 
-  const navItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard' },
-    { icon: Users, label: 'Students', path: '/admin/students' },
-    { icon: Armchair, label: 'Seats', path: '/admin/seats' },
-    { icon: CreditCard, label: 'Payments', path: '/admin/payments', active: true },
-    { icon: Calendar, label: 'Attendance', path: '/admin/attendance' },
-    { icon: UserCheck, label: 'Settings', path: '/admin/settings' },
-  ];
+  const navItems = getAdminNavItems('payments');
 
   return (
     <AdminLayout pageTitle="Payments" navItems={navItems} onLogout={handleLogout}>
@@ -141,14 +135,35 @@ export default function Payments() {
           {/* Search */}
           <Card className="mb-6">
             <CardContent className="p-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <Input
-                  placeholder="Search by student name or transaction ID..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
+              <div className="grid gap-3 md:grid-cols-3">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Input
+                    placeholder="Search by name or transaction ID..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+                <select
+                  className="h-10 rounded-md border border-slate-200 px-3 text-sm"
+                  value={methodFilter}
+                  onChange={(e) => setMethodFilter(e.target.value as typeof methodFilter)}
+                >
+                  <option value="all">All methods</option>
+                  <option value="online">Online</option>
+                  <option value="cash">Cash</option>
+                </select>
+                <select
+                  className="h-10 rounded-md border border-slate-200 px-3 text-sm"
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)}
+                >
+                  <option value="all">All status</option>
+                  <option value="completed">Completed</option>
+                  <option value="pending">Pending</option>
+                  <option value="failed">Failed</option>
+                </select>
               </div>
             </CardContent>
           </Card>

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import {
-  getAllAttendance,
   getAllPayments,
   getAllSeats,
   getAllStudents,
@@ -21,17 +20,15 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 
 import {
-  Users,
-  LayoutDashboard,
-  CreditCard,
-  UserCheck,
+  Wallet,
   Armchair,
-  Calendar,
-  TrendingUp,
+  CreditCard,
+  UserRoundCheck,
 } from 'lucide-react';
 
 import { toast } from 'sonner';
 import type { LibraryConfig, LibraryStats, Seat, Student } from '@/types';
+import { getAdminNavItems } from '@/lib/adminNav';
 
 const defaultConfig: LibraryConfig = {
   libraryName: 'LibraryHub',
@@ -57,8 +54,9 @@ export default function AdminDashboard() {
     cabin: 0,
   });
 
-  const [todayAttendanceCount, setTodayAttendanceCount] = useState(0);
   const [todayPaymentCount, setTodayPaymentCount] = useState(0);
+  const [todayRevenue, setTodayRevenue] = useState(0);
+  const [occupiedSeats, setOccupiedSeats] = useState(0);
 
   const loadData = () => {
     setStats(getLibraryStats());
@@ -78,8 +76,10 @@ export default function AdminDashboard() {
     });
 
     const today = new Date().toISOString().split('T')[0];
-    setTodayPaymentCount(getAllPayments().filter(p => p.date.startsWith(today)).length);
-    setTodayAttendanceCount(getAllAttendance().filter(a => a.date === today).length);
+    const todaysPayments = getAllPayments().filter(p => p.date.startsWith(today) && p.status === 'completed');
+    setTodayPaymentCount(todaysPayments.length);
+    setTodayRevenue(todaysPayments.reduce((sum, p) => sum + p.amount, 0));
+    setOccupiedSeats(getAllSeats().filter((seat) => seat.status === 'occupied').length);
   };
 
   useEffect(() => {
@@ -103,14 +103,7 @@ export default function AdminDashboard() {
     toast.success('Library configuration updated successfully');
   };
 
-  const navItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard', active: true },
-    { icon: Users, label: 'Students', path: '/admin/students' },
-    { icon: Armchair, label: 'Seats', path: '/admin/seats' },
-    { icon: CreditCard, label: 'Payments', path: '/admin/payments' },
-    { icon: Calendar, label: 'Attendance', path: '/admin/attendance' },
-    { icon: UserCheck, label: 'Settings', path: '/admin/settings' },
-  ];
+  const navItems = getAdminNavItems('dashboard');
 
   return (
     <AdminLayout pageTitle="Admin Dashboard" navItems={navItems} onLogout={handleLogout}>
@@ -119,18 +112,48 @@ export default function AdminDashboard() {
         <p className="text-slate-600">Welcome back! Here's what's happening in your library.</p>
       </div>
 
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <TrendingUp className="h-5 w-5" />
-            Today's Activity
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p>Attendance: {todayAttendanceCount}</p>
-          <p>Payments: {todayPaymentCount}</p>
-        </CardContent>
-      </Card>
+      <div className="grid md:grid-cols-4 gap-4 mb-6">
+        <Card>
+          <CardContent className="p-5">
+            <p className="text-sm text-slate-500">Today's Revenue</p>
+            <p className="text-2xl font-bold mt-1">₹{todayRevenue.toLocaleString()}</p>
+            <div className="flex items-center gap-2 mt-2 text-emerald-600 text-xs">
+              <Wallet className="h-4 w-4" />
+              Received today
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-5">
+            <p className="text-sm text-slate-500">Today's Payments</p>
+            <p className="text-2xl font-bold mt-1">{todayPaymentCount}</p>
+            <div className="flex items-center gap-2 mt-2 text-sky-600 text-xs">
+              <CreditCard className="h-4 w-4" />
+              Completed transactions
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-5">
+            <p className="text-sm text-slate-500">Occupied Seats</p>
+            <p className="text-2xl font-bold mt-1">{occupiedSeats}</p>
+            <div className="flex items-center gap-2 mt-2 text-violet-600 text-xs">
+              <Armchair className="h-4 w-4" />
+              Live seat usage
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-5">
+            <p className="text-sm text-slate-500">Pending Approvals</p>
+            <p className="text-2xl font-bold mt-1">{pendingStudents.length}</p>
+            <div className="flex items-center gap-2 mt-2 text-amber-600 text-xs">
+              <UserRoundCheck className="h-4 w-4" />
+              Awaiting review
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       <div className="grid xl:grid-cols-2 gap-6 mb-6">
         <Card>

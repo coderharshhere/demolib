@@ -11,7 +11,6 @@ import AdminDashboard from '@/pages/admin/AdminDashboard';
 import StudentManagement from '@/pages/admin/StudentManagement';
 import SeatManagement from '@/pages/admin/SeatManagement';
 import Payments from '@/pages/admin/Payments';
-import Attendance from '@/pages/admin/Attendance';
 import AdminSettings from '@/pages/admin/AdminSettings';
 import StudentLogin from '@/pages/student/StudentLogin';
 import StudentRegister from '@/pages/student/StudentRegister';
@@ -74,11 +73,6 @@ function AppRoutes() {
       <Route path="/admin/payments" element={
         <ProtectedRoute allowedRole="admin">
           <Payments />
-        </ProtectedRoute>
-      } />
-      <Route path="/admin/attendance" element={
-        <ProtectedRoute allowedRole="admin">
-          <Attendance />
         </ProtectedRoute>
       } />
       <Route path="/admin/settings" element={

@@ -7,20 +7,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { 
-  Users, 
-  LayoutDashboard, 
-  CreditCard, 
-  UserCheck, 
-  Armchair,
-  Calendar,
   Settings,
   Bell,
   Mail,
   MessageCircle,
-  Save
+  Save,
+  ReceiptText,
+  ShieldCheck
 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { getAdminNavItems } from '@/lib/adminNav';
 
 export default function AdminSettings() {
   const navigate = useNavigate();
@@ -33,7 +30,10 @@ export default function AdminSettings() {
     smsNotifications: false,
     autoApprove: false,
     paymentReminder: true,
-    attendanceReminder: true
+    attendanceReminder: false,
+    invoicePrefix: 'LIB-INV',
+    admissionFee: 500,
+    securityDeposit: 1000
   });
 
   const handleLogout = () => {
@@ -45,14 +45,7 @@ export default function AdminSettings() {
     toast.success('Settings saved successfully');
   };
 
-  const navItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard' },
-    { icon: Users, label: 'Students', path: '/admin/students' },
-    { icon: Armchair, label: 'Seats', path: '/admin/seats' },
-    { icon: CreditCard, label: 'Payments', path: '/admin/payments' },
-    { icon: Calendar, label: 'Attendance', path: '/admin/attendance' },
-    { icon: UserCheck, label: 'Settings', path: '/admin/settings', active: true },
-  ];
+  const navItems = getAdminNavItems('settings');
 
   return (
     <AdminLayout pageTitle="Settings" navItems={navItems} onLogout={handleLogout}>
@@ -162,13 +155,72 @@ export default function AdminSettings() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium">Attendance Reminders</p>
-                    <p className="text-sm text-slate-500">Notify students about their attendance</p>
+                    <p className="font-medium">Library Policy Reminders</p>
+                    <p className="text-sm text-slate-500">Send policy and renewal reminders</p>
                   </div>
                   <Switch 
                     checked={settings.attendanceReminder}
                     onCheckedChange={(v) => setSettings({...settings, attendanceReminder: v})}
                   />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ReceiptText className="h-5 w-5" />
+                  Billing Configuration
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label>Invoice Prefix</Label>
+                  <Input
+                    value={settings.invoicePrefix}
+                    onChange={(e) => setSettings({ ...settings, invoicePrefix: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label>Admission Fee</Label>
+                  <Input
+                    type="number"
+                    value={settings.admissionFee}
+                    onChange={(e) => setSettings({ ...settings, admissionFee: +e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label>Security Deposit</Label>
+                  <Input
+                    type="number"
+                    value={settings.securityDeposit}
+                    onChange={(e) => setSettings({ ...settings, securityDeposit: +e.target.value })}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ShieldCheck className="h-5 w-5" />
+                  Access & Security
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Strict ID Verification</p>
+                    <p className="text-sm text-slate-500">Require valid ID before approval</p>
+                  </div>
+                  <Switch checked disabled />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Lock Manual Discounts</p>
+                    <p className="text-sm text-slate-500">Only admin can apply billing discounts</p>
+                  </div>
+                  <Switch checked disabled />
                 </div>
               </CardContent>
             </Card>

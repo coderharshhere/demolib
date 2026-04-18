@@ -15,11 +15,13 @@ import {
   CheckCircle,
   Clock,
   AlertCircle,
+  Download,
   IndianRupee,
   MapPin,
   BookOpen
 } from 'lucide-react';
 import type { Student, Notification } from '@/types';
+import { downloadReceiptPdf } from '@/lib/documentGenerators';
 
 export default function StudentDashboard() {
   const navigate = useNavigate();
@@ -240,6 +242,14 @@ export default function StudentDashboard() {
                     {new Date(student.registrationDate).toLocaleDateString()}
                   </p>
                 </div>
+                <Button
+                  className="w-full"
+                  disabled={student.paymentStatus !== 'paid'}
+                  onClick={() => downloadReceiptPdf(student)}
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  Download Professional Receipt
+                </Button>
               </CardContent>
             </Card>
 

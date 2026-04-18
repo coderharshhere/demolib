@@ -16,6 +16,7 @@ import {
   IndianRupee,
   CheckCircle,
   AlertCircle,
+  Download,
   Smartphone,
   Banknote,
   Loader2,
@@ -23,6 +24,7 @@ import {
 } from 'lucide-react';
 import type { Student } from '@/types';
 import { toast } from 'sonner';
+import { downloadReceiptPdf } from '@/lib/documentGenerators';
 
 export default function PaymentPage() {
   const navigate = useNavigate();
@@ -107,6 +109,10 @@ export default function PaymentPage() {
                 </Button>
                 <Button variant="outline" className="w-full" onClick={() => navigate('/student/my-seat')}>
                   View My Seat
+                </Button>
+                <Button variant="outline" className="w-full" onClick={() => downloadReceiptPdf(student)}>
+                  <Download className="h-4 w-4 mr-2" />
+                  Download Professional Receipt
                 </Button>
               </div>
             </CardContent>
@@ -195,6 +201,10 @@ export default function PaymentPage() {
                   </Button>
                   <Button variant="outline" onClick={() => navigate('/student/my-seat')}>
                     View My Seat
+                  </Button>
+                  <Button variant="outline" onClick={() => downloadReceiptPdf(student)}>
+                    <Download className="h-4 w-4 mr-2" />
+                    Download Receipt
                   </Button>
                 </div>
               </CardContent>
