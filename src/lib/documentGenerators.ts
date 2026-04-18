@@ -5,8 +5,6 @@ const formatDateTime = (value?: string) => {
   return new Date(value).toLocaleString();
 };
 
-const formatCurrency = (amount?: number) => `₹${(amount || 0).toLocaleString('en-IN')}`;
-
 const printDocument = (title: string, bodyHtml: string) => {
   const printWindow = window.open('', '_blank', 'width=900,height=700');
 
@@ -185,64 +183,40 @@ export const downloadStudentProfilePdf = (student: Student) => {
 };
 
 export const downloadReceiptPdf = (student: Student) => {
-  const baseAmount = student.paymentAmount || 0;
-  const admissionFee = 0;
-  const securityDeposit = 0;
-  const discount = 0;
-  const taxableAmount = baseAmount + admissionFee + securityDeposit - discount;
-  const gstRate = 0;
-  const gstAmount = Math.round((taxableAmount * gstRate) / 100);
-  const grandTotal = taxableAmount + gstAmount;
-  const invoiceNo = `LIB-INV-${student.id.slice(-6).toUpperCase()}`;
-
   const bodyHtml = `
     <div class="page">
       <div class="header">
-        <h1>Tax Invoice / Payment Receipt</h1>
-        <p>LibraryHub Professional Billing Document</p>
-        <span class="receipt-badge">Invoice No: ${invoiceNo}</span>
+        <h1>Payment Receipt</h1>
+        <p>LibraryHub Professional Receipt</p>
+        <span class="receipt-badge">Receipt ID: RCPT-${student.id}</span>
       </div>
 
       <div class="section">
-        <h2>Billing Details</h2>
+        <h2>Receipt Details</h2>
         <div class="grid">
-          <div class="item"><div class="label">Invoice Date</div><div class="value">${formatDateTime(student.paymentDate || new Date().toISOString())}</div></div>
-          <div class="item"><div class="label">Receipt ID</div><div class="value">RCPT-${student.id}</div></div>
           <div class="item"><div class="label">Student Name</div><div class="value">${student.name}</div></div>
           <div class="item"><div class="label">Student Email</div><div class="value">${student.email}</div></div>
           <div class="item"><div class="label">Phone</div><div class="value">${student.phone}</div></div>
           <div class="item"><div class="label">Course</div><div class="value">${student.course || 'N/A'}</div></div>
           <div class="item"><div class="label">Assigned Seat</div><div class="value">${student.seatNumber || 'Not Assigned'}</div></div>
-          <div class="item"><div class="label">Payment Method</div><div class="value">${(student.paymentMethod || 'N/A').toUpperCase()}</div></div>
-          <div class="item"><div class="label">Payment Status</div><div class="value">${student.paymentStatus.toUpperCase()}</div></div>
+          <div class="item"><div class="label">Payment Method</div><div class="value">${student.paymentMethod || 'N/A'}</div></div>
+          <div class="item"><div class="label">Payment Date</div><div class="value">${formatDateTime(student.paymentDate)}</div></div>
           <div class="item"><div class="label">Generated On</div><div class="value">${formatDateTime(new Date().toISOString())}</div></div>
         </div>
       </div>
 
       <div class="section">
-        <h2>Professional Billing Summary</h2>
+        <h2>Amount Summary</h2>
         <div class="grid">
-          <div class="item"><div class="label">Monthly Subscription Fee</div><div class="value">${formatCurrency(baseAmount)}</div></div>
-          <div class="item"><div class="label">Admission Fee</div><div class="value">${formatCurrency(admissionFee)}</div></div>
-          <div class="item"><div class="label">Security Deposit</div><div class="value">${formatCurrency(securityDeposit)}</div></div>
-          <div class="item"><div class="label">Discount</div><div class="value">-${formatCurrency(discount)}</div></div>
-          <div class="item"><div class="label">Taxable Amount</div><div class="value">${formatCurrency(taxableAmount)}</div></div>
-          <div class="item"><div class="label">GST (${gstRate}%)</div><div class="value">${formatCurrency(gstAmount)}</div></div>
-          <div class="item"><div class="label">Grand Total</div><div class="value">${formatCurrency(grandTotal)}</div></div>
+          <div class="item"><div class="label">Library Subscription Fee</div><div class="value">₹${student.paymentAmount || 0}</div></div>
+          <div class="item"><div class="label">Payment Status</div><div class="value">${student.paymentStatus.toUpperCase()}</div></div>
+          <div class="item"><div class="label">Total Paid</div><div class="value">₹${student.paymentAmount || 0}</div></div>
           <div class="item"><div class="label">Outstanding Due</div><div class="value">₹0</div></div>
         </div>
       </div>
 
-      <div class="section">
-        <h2>Notes</h2>
-        <div class="item">
-          <div class="label">Payment Terms</div>
-          <div class="value">Paid in full. This receipt is valid for library access and compliance records.</div>
-        </div>
-      </div>
-
       <div class="footer">
-        This is a digitally generated professional billing receipt. Signature is not required.
+        This is a digitally generated professional receipt. Signature is not required.
       </div>
     </div>
   `;
