@@ -40,11 +40,13 @@ import {
   CheckCircle,
   XCircle,
   Eye,
+  FileDown,
   IndianRupee,
   CheckCheck
 } from 'lucide-react';
 import type { Student, Seat } from '@/types';
 import { toast } from 'sonner';
+import { downloadStudentProfilePdf } from '@/lib/documentGenerators';
 
 export default function StudentManagement() {
   const navigate = useNavigate();
@@ -410,8 +412,36 @@ export default function StudentManagement() {
                   <p className="font-medium">{selectedStudent.course}</p>
                 </div>
                 <div>
+                  <Label className="text-slate-500">Guardian Name</Label>
+                  <p className="font-medium">{selectedStudent.guardianName || 'N/A'}</p>
+                </div>
+                <div>
+                  <Label className="text-slate-500">Emergency Contact</Label>
+                  <p className="font-medium">{selectedStudent.emergencyContact || 'N/A'}</p>
+                </div>
+                <div>
                   <Label className="text-slate-500">Institute</Label>
                   <p className="font-medium">{selectedStudent.institute}</p>
+                </div>
+                <div>
+                  <Label className="text-slate-500">Date of Birth</Label>
+                  <p className="font-medium">{selectedStudent.dateOfBirth || 'N/A'}</p>
+                </div>
+                <div>
+                  <Label className="text-slate-500">Gender</Label>
+                  <p className="font-medium capitalize">{selectedStudent.gender || 'N/A'}</p>
+                </div>
+                <div>
+                  <Label className="text-slate-500">Preferred Shift</Label>
+                  <p className="font-medium capitalize">{selectedStudent.preferredShift || 'N/A'}</p>
+                </div>
+                <div>
+                  <Label className="text-slate-500">Study Goal</Label>
+                  <p className="font-medium">{selectedStudent.studyGoal || 'N/A'}</p>
+                </div>
+                <div>
+                  <Label className="text-slate-500">ID Type</Label>
+                  <p className="font-medium capitalize">{selectedStudent.idType || 'N/A'}</p>
                 </div>
                 <div>
                   <Label className="text-slate-500">Status</Label>
@@ -429,6 +459,16 @@ export default function StudentManagement() {
                     <p className="font-medium">₹{selectedStudent.paymentAmount}</p>
                   </div>
                 )}
+                <div>
+                  <Label className="text-slate-500">Payment Method</Label>
+                  <p className="font-medium capitalize">{selectedStudent.paymentMethod || 'N/A'}</p>
+                </div>
+                <div>
+                  <Label className="text-slate-500">Payment Date</Label>
+                  <p className="font-medium">
+                    {selectedStudent.paymentDate ? new Date(selectedStudent.paymentDate).toLocaleString() : 'N/A'}
+                  </p>
+                </div>
               </div>
               <div>
                 <Label className="text-slate-500">Address</Label>
@@ -439,6 +479,12 @@ export default function StudentManagement() {
                 <p className="font-medium">
                   {new Date(selectedStudent.registrationDate).toLocaleDateString()}
                 </p>
+              </div>
+              <div className="pt-2">
+                <Button className="w-full" onClick={() => downloadStudentProfilePdf(selectedStudent)}>
+                  <FileDown className="h-4 w-4 mr-2" />
+                  Download Professional PDF
+                </Button>
               </div>
             </div>
           )}
